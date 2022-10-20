@@ -8,11 +8,11 @@ uses
 
   Const
 ImgIsleMax = 6;
-  //Максимальное длина игрового мира
-  TextureWidth = 16; //16 или 10
-// Длина звёздного неба
+  //РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РґР»РёРЅР° РёРіСЂРѕРІРѕРіРѕ РјРёСЂР°
+  TextureWidth = 16; //16 РёР»Рё 10
+// Р”Р»РёРЅР° Р·РІС‘Р·РґРЅРѕРіРѕ РЅРµР±Р°
   GameIsleMaxX = 110;
-//Массив звёздного пространства
+//РњР°СЃСЃРёРІ Р·РІС‘Р·РґРЅРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
   GameIsleConst: array[0..GameIsleMaxX - 1] of byte = (0, 1, 2, 3, 4, 5, 6, 0, 0, 0,
                                                        0, 1, 2, 3, 4, 5, 6, 0, 0, 0,
                                                        0, 1, 2, 3, 4, 5, 6, 0, 0, 0,
@@ -30,10 +30,10 @@ type
   TGameIsle = class (TObject)
   public
   //TimerAnimation: TTimer;
-  //Массив спрайтов игрового пространства
+  //РњР°СЃСЃРёРІ СЃРїСЂР°Р№С‚РѕРІ РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
   IsleX, IsleY: integer;
   ImgGameIsle: array[0..ImgIsleMax] of TBitmap;
-  //Задаём спрайты неба
+  //Р—Р°РґР°С‘Рј СЃРїСЂР°Р№С‚С‹ РЅРµР±Р°
   GameIsleArr: array[0..GameIsleMaxX - 1] of byte;
   //procedure TimerAnimationProccessing(Sender: TObject);
   procedure Show;
@@ -49,7 +49,7 @@ constructor TGameIsle.CreateGameIsle(ownerForm: TWinControl);
 var
 i:integer;
 begin
-//Присваиваем значение переменным игрового пространства по X и Y
+//РџСЂРёСЃРІР°РёРІР°РµРј Р·РЅР°С‡РµРЅРёРµ РїРµСЂРµРјРµРЅРЅС‹Рј РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РїРѕ X Рё Y
 IsleX := 0;//40
 IsleY := 250;
 
@@ -67,7 +67,7 @@ for i := 0 to length(GameIsleArr) - 1 Do
    ImgGameIsle[i].TransparentColor:=clBlack;
    //ImgMassStar[i].Canvas.Brush.Color:=clPurple;
    end;
-//Включаем таймер звёзд
+//Р’РєР»СЋС‡Р°РµРј С‚Р°Р№РјРµСЂ Р·РІС‘Р·Рґ
 //self.TimerAnimation := TTimer.Create(nil);
 //self.TimerAnimation.OnTimer:=self.TimerAnimationProccessing;
 //self.TimerAnimation.Interval:=round((Random*200)+500);
@@ -83,7 +83,7 @@ LastBrick : integer;
 begin
 xScreen := 0;
 
-//Мы должны пиксели координаты XWorld пересчитать в первый кирпич, с которого мы должны начать выводить игровое пространство.
+//РњС‹ РґРѕР»Р¶РЅС‹ РїРёРєСЃРµР»Рё РєРѕРѕСЂРґРёРЅР°С‚С‹ XWorld РїРµСЂРµСЃС‡РёС‚Р°С‚СЊ РІ РїРµСЂРІС‹Р№ РєРёСЂРїРёС‡, СЃ РєРѕС‚РѕСЂРѕРіРѕ РјС‹ РґРѕР»Р¶РЅС‹ РЅР°С‡Р°С‚СЊ РІС‹РІРѕРґРёС‚СЊ РёРіСЂРѕРІРѕРµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІРѕ.
 FirstBrick := round(IsleX div TextureWidth);
 LastBrick := FirstBrick + round(VirtBitmap.Width div TextureWidth * TextureWidth/TextureWidth);
 if FirstBrick <= 0 then
@@ -99,11 +99,11 @@ if LastBrick >= Length(GameIsleArr) then
 xScreen := -round(IsleX - IsleX div TextureWidth * TextureWidth);
 for i := FirstBrick to LastBrick do
   begin
-   //Читаем из массива игрового пространства номер спрайта
+   //Р§РёС‚Р°РµРј РёР· РјР°СЃСЃРёРІР° РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РЅРѕРјРµСЂ СЃРїСЂР°Р№С‚Р°
   sprindex := self.GameIsleArr[i];
-  //Необходимо пересчитать Xscreen в координаты виртуального экрана.
+  //РќРµРѕР±С…РѕРґРёРјРѕ РїРµСЂРµСЃС‡РёС‚Р°С‚СЊ Xscreen РІ РєРѕРѕСЂРґРёРЅР°С‚С‹ РІРёСЂС‚СѓР°Р»СЊРЅРѕРіРѕ СЌРєСЂР°РЅР°.
   VirtBitmap.Canvas.Draw(xScreen, self.IsleY, self.ImgGameIsle[sprindex]);
-  // Прибавляем 10. 10 - размер спрайтов по 10 пикселей, учтём это
+  // РџСЂРёР±Р°РІР»СЏРµРј 10. 10 - СЂР°Р·РјРµСЂ СЃРїСЂР°Р№С‚РѕРІ РїРѕ 10 РїРёРєСЃРµР»РµР№, СѓС‡С‚С‘Рј СЌС‚Рѕ
   xScreen:= xScreen + TextureWidth;
   end;
 
@@ -116,20 +116,20 @@ VirtBitmap.Canvas.TextOut( 300, 50, 'LastBrickStars=' + inttostr(LastBrick));
 end;
 
 
-//Это деструктор спрайтов игрового пространства
+//Р­С‚Рѕ РґРµСЃС‚СЂСѓРєС‚РѕСЂ СЃРїСЂР°Р№С‚РѕРІ РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
 destructor TGameIsle.Destroy;
 var
 i:byte;
 begin
-//Здесь мы удаляем из памяти звёзды
+//Р—РґРµСЃСЊ РјС‹ СѓРґР°Р»СЏРµРј РёР· РїР°РјСЏС‚Рё Р·РІС‘Р·РґС‹
 For i:=0 to length(ImgGameIsle) - 1  Do
    begin
    ImgGameIsle[i].Free;
    //ImgMassStar[i].Canvas.Brush.Color:=clPurple;
    end;
-//Удаляем таймер
+//РЈРґР°Р»СЏРµРј С‚Р°Р№РјРµСЂ
 //TimerAnimation.free;
-//Вызов деструктора родительского класса
+//Р’С‹Р·РѕРІ РґРµСЃС‚СЂСѓРєС‚РѕСЂР° СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РєР»Р°СЃСЃР°
 inherited;
 end;
 
