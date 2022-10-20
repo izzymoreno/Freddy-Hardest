@@ -8,10 +8,10 @@ uses
 
 Const
 
-//Максимальное значение спрайтов звёзд
+//РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СЃРїСЂР°Р№С‚РѕРІ Р·РІС‘Р·Рґ
 MaxImageStar = 5;
 
-//Выбор направления движения звёзд
+//Р’С‹Р±РѕСЂ РЅР°РїСЂР°РІР»РµРЅРёСЏ РґРІРёР¶РµРЅРёСЏ Р·РІС‘Р·Рґ
 type
     TMoveDirection = (directionLeft, directionRight);
 
@@ -21,7 +21,7 @@ type
   public
   Name: string;
   TimerAnimation: TTimer;
-  //Массив спрайтов звёзд
+  //РњР°СЃСЃРёРІ СЃРїСЂР°Р№С‚РѕРІ Р·РІС‘Р·Рґ
   XStar,YStar: integer;
   sprleftindex,sprrightindex:integer;
   sprminleft,sprminright:integer;
@@ -42,11 +42,11 @@ constructor TMyStar.CreateStar(X, Y:integer; Move:string; ownerForm: TWinControl
 var
 i:integer;
 begin
-//Инициализируем генератор случайных чисел для мух
+//РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РіРµРЅРµСЂР°С‚РѕСЂ СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР» РґР»СЏ РјСѓС…
 Randomize;
 XStar:=X;//round(Random*xmax);
 YStar:=Y;//round(Random*ymax);
-//Загружаем все спрайты гусениц
+//Р—Р°РіСЂСѓР¶Р°РµРј РІСЃРµ СЃРїСЂР°Р№С‚С‹ РіСѓСЃРµРЅРёС†
 For i:=0 to MaxImageStar-1 Do
    begin
    ImgMassStar[i]:=TBitMap.Create;
@@ -56,7 +56,7 @@ For i:=0 to MaxImageStar-1 Do
    ImgMassStar[i].TransparentColor:=clBlack;
    //ImgMassStar[i].Canvas.Brush.Color:=clPurple;
    end;
-//Заводим переменные для анимации звезды
+//Р—Р°РІРѕРґРёРј РїРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ Р°РЅРёРјР°С†РёРё Р·РІРµР·РґС‹
 sprminleft := 0;
 sprminright := 2;
 sprmaxleft := 1;
@@ -64,7 +64,7 @@ sprmaxright := 3;
 sprleftindex := sprminleft;
 sprrightindex := sprminright;
 ThereMove := directionLeft;
-//Включаем таймер звёзд
+//Р’РєР»СЋС‡Р°РµРј С‚Р°Р№РјРµСЂ Р·РІС‘Р·Рґ
 self.TimerAnimation := TTimer.Create(nil);
 self.TimerAnimation.OnTimer:=self.TimerAnimationProccessing;
 self.TimerAnimation.Interval:=round((Random*200)+500);
@@ -75,10 +75,10 @@ procedure TMyStar.TimerAnimationProccessing(Sender: TObject);
 var
 i: integer;
 begin
-//Таймер мигания звёзд
-//Необходимо менять индексы у спрайтов звёзд.
-//Берём первую звезду и присваиваем ей минимальный индекс,
-//Берём вторую звезду и присваеваем ей минимальный индекс, берём к-тую звезду и так со всеми звёздами
+//РўР°Р№РјРµСЂ РјРёРіР°РЅРёСЏ Р·РІС‘Р·Рґ
+//РќРµРѕР±С…РѕРґРёРјРѕ РјРµРЅСЏС‚СЊ РёРЅРґРµРєСЃС‹ Сѓ СЃРїСЂР°Р№С‚РѕРІ Р·РІС‘Р·Рґ.
+//Р‘РµСЂС‘Рј РїРµСЂРІСѓСЋ Р·РІРµР·РґСѓ Рё РїСЂРёСЃРІР°РёРІР°РµРј РµР№ РјРёРЅРёРјР°Р»СЊРЅС‹Р№ РёРЅРґРµРєСЃ,
+//Р‘РµСЂС‘Рј РІС‚РѕСЂСѓСЋ Р·РІРµР·РґСѓ Рё РїСЂРёСЃРІР°РµРІР°РµРј РµР№ РјРёРЅРёРјР°Р»СЊРЅС‹Р№ РёРЅРґРµРєСЃ, Р±РµСЂС‘Рј Рє-С‚СѓСЋ Р·РІРµР·РґСѓ Рё С‚Р°Рє СЃРѕ РІСЃРµРјРё Р·РІС‘Р·РґР°РјРё
 self.sprleftindex := sprleftindex+1;
 if sprleftindex >= MaxImageStar-1 then
   sprleftindex :=0;
@@ -91,20 +91,20 @@ If (self.ThereMove = directionLeft) then
      VirtBitmap.Canvas.Draw(self.XStar, self.YStar, self.ImgMassStar[self.sprleftindex])
 end;
 
-//Это деструктор звёзд
+//Р­С‚Рѕ РґРµСЃС‚СЂСѓРєС‚РѕСЂ Р·РІС‘Р·Рґ
 destructor TMyStar.Destroy;
 var
 i:byte;
 begin
-//Здесь мы удаляем из памяти звёзды
+//Р—РґРµСЃСЊ РјС‹ СѓРґР°Р»СЏРµРј РёР· РїР°РјСЏС‚Рё Р·РІС‘Р·РґС‹
 For i:=0 to MaxImageStar - 1 Do
    begin
-   //Если объект существует в памяти, то мы его удаляем
+   //Р•СЃР»Рё РѕР±СЉРµРєС‚ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РїР°РјСЏС‚Рё, С‚Рѕ РјС‹ РµРіРѕ СѓРґР°Р»СЏРµРј
    if ImgMassStar[i] <> nil then Freeandnil(ImgMassStar[i]);
    end;
-//Удаляем таймер
+//РЈРґР°Р»СЏРµРј С‚Р°Р№РјРµСЂ
 TimerAnimation.free;
-//Вызов деструктора родительского класса
+//Р’С‹Р·РѕРІ РґРµСЃС‚СЂСѓРєС‚РѕСЂР° СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РєР»Р°СЃСЃР°
 inherited;
 end;
 
