@@ -7,7 +7,7 @@ uses
   ExtCtrls, Math, StdCtrls;
 
 Const
-//Основные константы
+//РћСЃРЅРѕРІРЅС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹
 xmin = 0;
 ymin = 0;
 XScreenMax = 880;
@@ -28,22 +28,22 @@ type
 var
   Form1: TForm1;
 
-//Заводим виртуальный Canvas
+//Р—Р°РІРѕРґРёРј РІРёСЂС‚СѓР°Р»СЊРЅС‹Р№ Canvas
 VirtBitmap: TBitmap;
 
-//Пуск
+//РџСѓСЃРє
 implementation
 
 {$R *.DFM}
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-//Заполняем Canvas чёрным цветом
+//Р—Р°РїРѕР»РЅСЏРµРј Canvas С‡С‘СЂРЅС‹Рј С†РІРµС‚РѕРј
 Form1.Image1.Canvas.Brush.Color:=clBlack;
 Form1.Image1.Canvas.FillRect(Rect(xmin,ymin,XScreenMax,YScreenMax));
 Form1.Image1.Width:=XScreenMax;
 Form1.Image1.Height:=YScreenMax;
-//Создаём виртуальный Bitmap
+//РЎРѕР·РґР°С‘Рј РІРёСЂС‚СѓР°Р»СЊРЅС‹Р№ Bitmap
 VirtBitmap:=TBitmap.Create;
 VirtBitmap.Width:=Image1.Width;
 VirtBitmap.Height:=Image1.Height;
