@@ -8,7 +8,7 @@ uses
 
   Const
 
-  //Максимальное длина игрового мира
+  //РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ РґР»РёРЅР° РёРіСЂРѕРІРѕРіРѕ РјРёСЂР°
   GameWorldMaxX = 100;
   GameWorld: array[0..GameWorldMaxX - 1] of byte = (1, 2, 1, 1, 1, 1, 1, 1, 1, 1,
                                                        1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -25,10 +25,10 @@ type
   TGameWorld = class (TObject)
   public
   //TimerAnimation: TTimer;
-  //Массив спрайтов игрового пространства
+  //РњР°СЃСЃРёРІ СЃРїСЂР°Р№С‚РѕРІ РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
   WorldX, WorldY: integer;
   ImgGameWorld: array[0..1] of TBitMap;
-  //Задаём спрайты игрового пространства
+  //Р—Р°РґР°С‘Рј СЃРїСЂР°Р№С‚С‹ РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
   GameWorldArr: array[0..GameWorldMaxX - 1] of byte;
   //procedure TimerAnimationProccessing(Sender: TObject);
   procedure Show;
@@ -44,11 +44,11 @@ constructor TGameWorld.CreateGameWorld(ownerForm: TWinControl);
 var
 i:integer;
 begin
-//Присваиваем значение переменным игрового пространства по X и Y
+//РџСЂРёСЃРІР°РёРІР°РµРј Р·РЅР°С‡РµРЅРёРµ РїРµСЂРµРјРµРЅРЅС‹Рј РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РїРѕ X Рё Y
 WorldX:=0;
 WorldY:=200;
 
-//Загружаем спрайты в массив игрового пространства
+//Р—Р°РіСЂСѓР¶Р°РµРј СЃРїСЂР°Р№С‚С‹ РІ РјР°СЃСЃРёРІ РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
 For i:=0 to length(ImgGameWorld) - 1  Do
    begin
    ImgGameWorld[i]:=TBitMap.Create;
@@ -58,7 +58,7 @@ For i:=0 to length(ImgGameWorld) - 1  Do
    ImgGameWorld[i].TransparentColor:=clBlack;
    //ImgMassStar[i].Canvas.Brush.Color:=clPurple;
    end;
-//Включаем таймер звёзд
+//Р’РєР»СЋС‡Р°РµРј С‚Р°Р№РјРµСЂ Р·РІС‘Р·Рґ
 //self.TimerAnimation := TTimer.Create(nil);
 //self.TimerAnimation.OnTimer:=self.TimerAnimationProccessing;
 //self.TimerAnimation.Interval:=round((Random*200)+500);
@@ -73,28 +73,28 @@ begin
 xScreen := self.WorldX;
 for i := 0 to 90 do
   begin
-   //Читаем из массива игрового пространства номер спрайта
+   //Р§РёС‚Р°РµРј РёР· РјР°СЃСЃРёРІР° РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РЅРѕРјРµСЂ СЃРїСЂР°Р№С‚Р°
    sprindex := self.GameWorld[i] - 1;
   VirtBitmap.Canvas.Draw(xScreen, self.WorldY, self.ImgGameWorld[sprindex]);
-  // Прибавляем 10. 10 - размер спрайтов по 10 пикселей, учтём это
+  // РџСЂРёР±Р°РІР»СЏРµРј 10. 10 - СЂР°Р·РјРµСЂ СЃРїСЂР°Р№С‚РѕРІ РїРѕ 10 РїРёРєСЃРµР»РµР№, СѓС‡С‚С‘Рј СЌС‚Рѕ
   xScreen:= xScreen + 10;
   end;
 end;
 
-//Это деструктор спрайтов игрового пространства
+//Р­С‚Рѕ РґРµСЃС‚СЂСѓРєС‚РѕСЂ СЃРїСЂР°Р№С‚РѕРІ РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР°
 destructor TGameWorld.Destroy;
 var
 i:byte;
 begin
-//Здесь мы удаляем из памяти звёзды
+//Р—РґРµСЃСЊ РјС‹ СѓРґР°Р»СЏРµРј РёР· РїР°РјСЏС‚Рё Р·РІС‘Р·РґС‹
 For i:=0 to length(ImgGameWorld) - 1  Do
    begin
    ImgGameWorld[i].Free;
    //ImgMassStar[i].Canvas.Brush.Color:=clPurple;
    end;
-//Удаляем таймер
+//РЈРґР°Р»СЏРµРј С‚Р°Р№РјРµСЂ
 //TimerAnimation.free;
-//Вызов деструктора родительского класса
+//Р’С‹Р·РѕРІ РґРµСЃС‚СЂСѓРєС‚РѕСЂР° СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РєР»Р°СЃСЃР°
 inherited;
 end;
 
