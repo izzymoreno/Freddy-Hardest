@@ -7,7 +7,7 @@ uses
 
 Const
 
-//Максимальное значение спрайтов Фредди движения влево и вправо соответственно
+//РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СЃРїСЂР°Р№С‚РѕРІ Р¤СЂРµРґРґРё РґРІРёР¶РµРЅРёСЏ РІР»РµРІРѕ Рё РІРїСЂР°РІРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРµРЅРЅРѕ
 MaxImgFreddyMoveLeft = 4;
 MaxImgFreddyMoveRight = 4;
 MaxImgFreddyMoveSitLeft = 1;
@@ -23,13 +23,13 @@ type
   TFreddy = class (TObject)
   public
   Name: string;
-  //Массив спрайтов Фредди
-  //Движение
+  //РњР°СЃСЃРёРІ СЃРїСЂР°Р№С‚РѕРІ Р¤СЂРµРґРґРё
+  //Р”РІРёР¶РµРЅРёРµ
   ImgMassFreddyMoveLeft: array[0..MaxImgFreddyMoveLeft-1] of TBitMap;
   ImgMassFreddyMoveRight: array[0..MaxImgFreddyMoveRight-1] of TBitMap;
   ImgMassFreddyMoveSitLeft: array[0..MaxImgFreddyMoveSitLeft-1] of TBitMap;
   ImgMassFreddyMoveSitRight: array[0..MaxImgFreddyMoveSitRight-1] of TBitMap;
-  //Удары ногами
+  //РЈРґР°СЂС‹ РЅРѕРіР°РјРё
   ImgMassFreddyKickLeft: array[0..MaxImgFreddyKickLeft-1] of TBitMap;
   ImgMassFreddyKickRight: array[0..MaxImgFreddyKickRight-1] of TBitMap;
 
@@ -60,13 +60,13 @@ self.TimerAnimation:=TTimer.Create(nil);
 self.TimerAnimation.OnTimer:=self.TimerAnimationProcessing;
 self.TimerAnimation.Interval:=round(145);
 //self.TimTimerAnimation.Interval:=round((Random*120)+(Random*60)+1);
-//Максимальная координата по X для мухи, чтобы она развернулась
+//РњР°РєСЃРёРјР°Р»СЊРЅР°СЏ РєРѕРѕСЂРґРёРЅР°С‚Р° РїРѕ X РґР»СЏ РјСѓС…Рё, С‡С‚РѕР±С‹ РѕРЅР° СЂР°Р·РІРµСЂРЅСѓР»Р°СЃСЊ
 ThereMove := FreddydirectionRight;
 XFreddy:=X;
 YFreddy:=Y;
 //self.grad:=0;
 self.owner:=ownerForm;
-//Загружаем все спрайты движения Фредди
+//Р—Р°РіСЂСѓР¶Р°РµРј РІСЃРµ СЃРїСЂР°Р№С‚С‹ РґРІРёР¶РµРЅРёСЏ Р¤СЂРµРґРґРё
 For i:=0 to MaxImgFreddyMoveLeft-1 Do
    begin
    ImgMassFreddyMoveLeft[i]:=TBitMap.Create;
@@ -87,7 +87,7 @@ For i:=0 to MaxImgFreddyMoveSitRight-1 Do
    ImgMassFreddyMoveSitRight[i]:=TBitMap.Create;
    ImgMassFreddyMoveSitRight[i].LoadFromFile(ExePath+'Graphics\Freddy\FreddySitRight\Freddy'+IntToStr(i+1)+'.bmp');
    end;
-//Загружаем спрайты ударов Фредди ногами
+//Р—Р°РіСЂСѓР¶Р°РµРј СЃРїСЂР°Р№С‚С‹ СѓРґР°СЂРѕРІ Р¤СЂРµРґРґРё РЅРѕРіР°РјРё
 For i:=0 to MaxImgFreddyKickLeft-1 Do
    begin
    ImgMassFreddyKickLeft[i]:=TBitMap.Create;
@@ -99,7 +99,7 @@ For i:=0 to MaxImgFreddyKickRight-1 Do
    ImgMassFreddyKickRight[i].LoadFromFile(ExePath+'Graphics\Freddy\FreddyKickRight\Freddy'+IntToStr(i+1)+'.bmp');
    end;
 
-//Заводим переменные для анимации Фредди
+//Р—Р°РІРѕРґРёРј РїРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ Р°РЅРёРјР°С†РёРё Р¤СЂРµРґРґРё
 FreddySit := false;
 FreddyKick := false;
 shagx:=0;
@@ -108,22 +108,22 @@ sprleftindex := 0;
 sprrightindex := 0;
 sprindexshag := 0;
 //ThereMove:=OwldirectionCenter;
-//Включаем таймер анимации Фредди
+//Р’РєР»СЋС‡Р°РµРј С‚Р°Р№РјРµСЂ Р°РЅРёРјР°С†РёРё Р¤СЂРµРґРґРё
 self.TimerAnimation.Enabled:=true;
 end;
 
 procedure TFreddy.TimerAnimationProcessing(Sender: TObject);
 begin
-//Фредди идёт влево
-//Здесь мы изменяем номер спрайта
-//Фредди идёт влево
+//Р¤СЂРµРґРґРё РёРґС‘С‚ РІР»РµРІРѕ
+//Р—РґРµСЃСЊ РјС‹ РёР·РјРµРЅСЏРµРј РЅРѕРјРµСЂ СЃРїСЂР°Р№С‚Р°
+//Р¤СЂРµРґРґРё РёРґС‘С‚ РІР»РµРІРѕ
 If (ThereMove = FreddydirectionLeft) then if (FreddyKick = False) then
   begin
    sprleftindex := sprleftindex + sprindexshag;
    if sprleftindex >= MaxImgFreddyMoveLeft then
       sprleftindex := 0;
    end;
-//Фредди идёт вправо
+//Р¤СЂРµРґРґРё РёРґС‘С‚ РІРїСЂР°РІРѕ
 If (ThereMove = FreddydirectionRight) then if (FreddyKick = False) then
    begin
    sprrightindex := sprrightindex + sprindexshag;
@@ -137,7 +137,7 @@ var
 i: integer;
 begin
 
-//Отрисовываем Фредди
+//РћС‚СЂРёСЃРѕРІС‹РІР°РµРј Р¤СЂРµРґРґРё
 
    if (Freddy.FreddySit = false) then
      if (ThereMove = FreddydirectionLeft) then
@@ -168,45 +168,45 @@ begin
      end;
 end;
 
-//Это деструктор Фредди
+//Р­С‚Рѕ РґРµСЃС‚СЂСѓРєС‚РѕСЂ Р¤СЂРµРґРґРё
 destructor TFreddy.Destroy;
 var
 i:byte;
 begin
-//Здесь мы удаляем из памяти Фредди
+//Р—РґРµСЃСЊ РјС‹ СѓРґР°Р»СЏРµРј РёР· РїР°РјСЏС‚Рё Р¤СЂРµРґРґРё
 For i:=0 to  MaxImgFreddyMoveLeft-1 Do
    begin
-   //Если объект существует в памяти, то мы его удаляем
+   //Р•СЃР»Рё РѕР±СЉРµРєС‚ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РїР°РјСЏС‚Рё, С‚Рѕ РјС‹ РµРіРѕ СѓРґР°Р»СЏРµРј
    if ImgMassFreddyMoveLeft[i]<>nil then ImgMassFreddyMoveLeft[i].free;
    end;
 For i:=0 to  MaxImgFreddyMoveRight-1 Do
    begin
-   //Если объект существует в памяти, то мы его удаляем
+   //Р•СЃР»Рё РѕР±СЉРµРєС‚ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РїР°РјСЏС‚Рё, С‚Рѕ РјС‹ РµРіРѕ СѓРґР°Р»СЏРµРј
    if ImgMassFreddyMoveRight[i]<>nil then ImgMassFreddyMoveRight[i].free;
    end;
 For i:=0 to  MaxImgFreddyMoveSitLeft-1 Do
    begin
-   //Если объект существует в памяти, то мы его удаляем
+   //Р•СЃР»Рё РѕР±СЉРµРєС‚ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РїР°РјСЏС‚Рё, С‚Рѕ РјС‹ РµРіРѕ СѓРґР°Р»СЏРµРј
    if ImgMassFreddyMoveSitLeft[i]<>nil then ImgMassFreddyMoveSitLeft[i].free;
    end;
 For i:=0 to  MaxImgFreddyMoveSitRight-1 Do
    begin
-   //Если объект существует в памяти, то мы его удаляем
+   //Р•СЃР»Рё РѕР±СЉРµРєС‚ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РїР°РјСЏС‚Рё, С‚Рѕ РјС‹ РµРіРѕ СѓРґР°Р»СЏРµРј
    if ImgMassFreddyMoveSitRight[i]<>nil then ImgMassFreddyMoveSitRight[i].free;
    end;
 For i:=0 to  MaxImgFreddyKickLeft-1 Do
    begin
-   //Если объект существует в памяти, то мы его удаляем
+   //Р•СЃР»Рё РѕР±СЉРµРєС‚ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РїР°РјСЏС‚Рё, С‚Рѕ РјС‹ РµРіРѕ СѓРґР°Р»СЏРµРј
    if ImgMassFreddyKickLeft[i]<>nil then ImgMassFreddyKickLeft[i].free;
    end;
 For i:=0 to  MaxImgFreddyKickRight-1 Do
    begin
-   //Если объект существует в памяти, то мы его удаляем
+   //Р•СЃР»Рё РѕР±СЉРµРєС‚ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РІ РїР°РјСЏС‚Рё, С‚Рѕ РјС‹ РµРіРѕ СѓРґР°Р»СЏРµРј
    if ImgMassFreddyKickRight[i]<>nil then ImgMassFreddyKickRight[i].free;
    end;
-//Удаляем таймер анимации
+//РЈРґР°Р»СЏРµРј С‚Р°Р№РјРµСЂ Р°РЅРёРјР°С†РёРё
 TimerAnimation.free;
-//Вызов деструктора родительского класса
+//Р’С‹Р·РѕРІ РґРµСЃС‚СЂСѓРєС‚РѕСЂР° СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ РєР»Р°СЃСЃР°
 inherited;
 end;
 
