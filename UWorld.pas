@@ -7,13 +7,13 @@ uses
   Dialogs, ExtCtrls;
 
   Const
-  //Текстуры
+  //РћСЃРЅРѕРІРЅС‹Рµ РєРѕРЅСЃС‚Р°РЅС‚С‹
   ImgGameWorldMax = 6;
-  //Максимальное длина игрового мира
+  //6 РљСѓСЃРѕС‡РєРѕРІ РїРµР№Р·Р°Р¶Р° Р·РµРјР»Рё, РєРѕС‚РѕСЂС‹Рµ РјРѕР¶РЅРѕ Р·Р°РЅРµСЃС‚Рё РІ РјР°СЃСЃРёРІ. РљР°Р¶РґС‹Р№ РєСѓСЃРѕС‡РµРє СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ РѕРїСЂРµРґРµР»С‘РЅРЅРѕРјСѓ РіСЂР°С„РёС‡РµСЃРєРѕРјСѓ РёР·РѕР±СЂР°Р¶РµРЅРёСЋ.
   TextureWidth = 16; //10
-// Длина игрового пространства
+// 
   GameWorldMaxX = 110;
-//Массив игрового пространства
+//Р Р°Р·РјРµСЂ РёРіСЂРѕРІРѕРіРѕ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РїРѕ РҐ
   GameWorldConst: array[0..GameWorldMaxX - 1] of byte = (0, 1, 2, 3, 4, 5, 6, 0, 0, 0,
                                                          0, 1, 2, 3, 4, 5, 6, 0, 0, 0,
                                                          0, 1, 2, 3, 4, 5, 6, 0, 0, 0,
@@ -30,10 +30,10 @@ type
   TGameWorld = class (TObject)
   public
   //TimerAnimation: TTimer;
-  //Массив спрайтов игрового пространства
+  //РўР°Р№РјРµСЂ Р°РЅРёРјР°С†РёРё РїРµР№Р·Р°Р¶Р°
   WorldX, WorldY: integer;
   ImgGameWorld: array[0..ImgGameWorldMax] of TBitMap;
-  //Задаём спрайты игрового пространства
+  //Г‡Г Г¤Г ВёГ¬ Г±ГЇГ°Г Г©ГІГ» ГЁГЈГ°Г®ГўГ®ГЈГ® ГЇГ°Г®Г±ГІГ°Г Г­Г±ГІГўГ 
   GameWorldArr: array[0..GameWorldMaxX - 1] of byte;
   //procedure TimerAnimationProccessing(Sender: TObject);
   procedure Show;
@@ -49,7 +49,7 @@ constructor TGameWorld.CreateGameWorld(ownerForm: TWinControl);
 var
 i:integer;
 begin
-//Присваиваем значение переменным игрового пространства по X и Y
+//ГЏГ°ГЁГ±ГўГ ГЁГўГ ГҐГ¬ Г§Г­Г Г·ГҐГ­ГЁГҐ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»Г¬ ГЁГЈГ°Г®ГўГ®ГЈГ® ГЇГ°Г®Г±ГІГ°Г Г­Г±ГІГўГ  ГЇГ® X ГЁ Y
 WorldX := 0;//40
 WorldY := 350;
 
@@ -58,7 +58,7 @@ For i:=0 to length(GameWorldArr) - 1  Do
   GameWorldArr[i] := GameWorldConst[i];
   end;
 
-//Загружаем спрайты в массив игрового пространства
+//Г‡Г ГЈГ°ГіГ¦Г ГҐГ¬ Г±ГЇГ°Г Г©ГІГ» Гў Г¬Г Г±Г±ГЁГў ГЁГЈГ°Г®ГўГ®ГЈГ® ГЇГ°Г®Г±ГІГ°Г Г­Г±ГІГўГ 
 For i := 0 to length(ImgGameWorld) - 1  Do
    begin
    ImgGameWorld[i]:=TBitMap.Create;
@@ -68,7 +68,7 @@ For i := 0 to length(ImgGameWorld) - 1  Do
    ImgGameWorld[i].TransparentColor:=clBlack;
    //ImgMassStar[i].Canvas.Brush.Color:=clPurple;
    end;
-//Включаем таймер звёзд
+//Г‚ГЄГ«ГѕГ·Г ГҐГ¬ ГІГ Г©Г¬ГҐГ° Г§ГўВёГ§Г¤
 //self.TimerAnimation := TTimer.Create(nil);
 //self.TimerAnimation.OnTimer:=self.TimerAnimationProccessing;
 //self.TimerAnimation.Interval:=round((Random*200)+500);
@@ -86,7 +86,7 @@ LastBrick : integer;
 begin
 xScreen := 0;
 
-//Мы должны пиксели координаты XWorld пересчитать в первый кирпич, с которого мы должны начать выводить игровое пространство.
+//ГЊГ» Г¤Г®Г«Г¦Г­Г» ГЇГЁГЄГ±ГҐГ«ГЁ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» XWorld ГЇГҐГ°ГҐГ±Г·ГЁГІГ ГІГј Гў ГЇГҐГ°ГўГ»Г© ГЄГЁГ°ГЇГЁГ·, Г± ГЄГ®ГІГ®Г°Г®ГЈГ® Г¬Г» Г¤Г®Г«Г¦Г­Г» Г­Г Г·Г ГІГј ГўГ»ГўГ®Г¤ГЁГІГј ГЁГЈГ°Г®ГўГ®ГҐ ГЇГ°Г®Г±ГІГ°Г Г­Г±ГІГўГ®.
 FirstBrick := round(WorldX div TextureWidth);
 LastBrick := FirstBrick + round(VirtBitmap.Width div TextureWidth * TextureWidth/TextureWidth);
 if FirstBrick <= 0 then
@@ -102,11 +102,11 @@ if LastBrick >= Length(GameWorldArr) then
 xScreen := -round(WorldX - WorldX div TextureWidth * TextureWidth);
 for i := FirstBrick to LastBrick do
   begin
-   //Читаем из массива игрового пространства номер спрайта
+   //Г—ГЁГІГ ГҐГ¬ ГЁГ§ Г¬Г Г±Г±ГЁГўГ  ГЁГЈГ°Г®ГўГ®ГЈГ® ГЇГ°Г®Г±ГІГ°Г Г­Г±ГІГўГ  Г­Г®Г¬ГҐГ° Г±ГЇГ°Г Г©ГІГ 
   sprindex := self.GameWorldArr[i];
-  //Необходимо пересчитать Xscreen в координаты виртуального экрана.
+  //ГЌГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® ГЇГҐГ°ГҐГ±Г·ГЁГІГ ГІГј Xscreen Гў ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГўГЁГ°ГІГіГ Г«ГјГ­Г®ГЈГ® ГЅГЄГ°Г Г­Г .
   VirtBitmap.Canvas.Draw(xScreen, self.WorldY, self.ImgGameWorld[sprindex]);
-  // Прибавляем 10. 10 - размер спрайтов по 10 пикселей, учтём это
+  // ГЏГ°ГЁГЎГ ГўГ«ГїГҐГ¬ 10. 10 - Г°Г Г§Г¬ГҐГ° Г±ГЇГ°Г Г©ГІГ®Гў ГЇГ® 10 ГЇГЁГЄГ±ГҐГ«ГҐГ©, ГіГ·ГІВёГ¬ ГЅГІГ®
   xScreen:= xScreen + TextureWidth;
   end;
 
@@ -120,20 +120,20 @@ end;
 
 
 
-//Это деструктор спрайтов игрового пространства
+//ГќГІГ® Г¤ГҐГ±ГІГ°ГіГЄГІГ®Г° Г±ГЇГ°Г Г©ГІГ®Гў ГЁГЈГ°Г®ГўГ®ГЈГ® ГЇГ°Г®Г±ГІГ°Г Г­Г±ГІГўГ 
 destructor TGameWorld.Destroy;
 var
 i:byte;
 begin
-//Здесь мы удаляем из памяти звёзды
+//Г‡Г¤ГҐГ±Гј Г¬Г» ГіГ¤Г Г«ГїГҐГ¬ ГЁГ§ ГЇГ Г¬ГїГІГЁ Г§ГўВёГ§Г¤Г»
 For i:=0 to length(ImgGameWorld) - 1  Do
    begin
    ImgGameWorld[i].Free;
    //ImgMassStar[i].Canvas.Brush.Color:=clPurple;
    end;
-//Удаляем таймер
+//Г“Г¤Г Г«ГїГҐГ¬ ГІГ Г©Г¬ГҐГ°
 //TimerAnimation.free;
-//Вызов деструктора родительского класса
+//Г‚Г»Г§Г®Гў Г¤ГҐГ±ГІГ°ГіГЄГІГ®Г°Г  Г°Г®Г¤ГЁГІГҐГ«ГјГ±ГЄГ®ГЈГ® ГЄГ«Г Г±Г±Г 
 inherited;
 end;
 
